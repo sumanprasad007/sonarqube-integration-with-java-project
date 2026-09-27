@@ -35,6 +35,14 @@ jobs:
           jq -e '.valid == true' >/dev/null
         echo "Sonar host is reachable and the token is valid."
 
+    - name: Cache SonarQube packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: |
+          ${{ runner.os }}-sonar
+
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       with:
